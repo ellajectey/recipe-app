@@ -1,6 +1,8 @@
 import { Container, TextField, Grid, } from "@mui/material";
 import RecipeItem from "../../components/recipe-item"
 import { useState, useEffect} from "react";
+import noRecipes from"../../assets/images/no_data_re_kwbl.svg";
+import preLoader from "../../assets/images/bouncing-circles.svg";
 
 
 export default function Recipes() {
@@ -8,9 +10,10 @@ export default function Recipes() {
 // don't use variables in react use useState
    const[recipes,setRecipes] = useState([]);
    const [searchItem,setSearchItem] = useState("");
+   const[loading,setLoading] = useState(false);
 
    const searchRecipes =() => {
-
+setLoading(true);
     // prepare url
     const url =new URL ('https://api.spoonacular.com/recipes/complexSearch')
     url.searchParams.append('apiKey',process.env.REACT_APP_SPOONACULAR_API_KEY);
@@ -23,7 +26,6 @@ export default function Recipes() {
     fetch(url)
     .then((response) => response.json())
     .then((data)=>{
-
     //update the recipes state
     setRecipes(data.results);
     // console.log(data);
@@ -31,7 +33,7 @@ export default function Recipes() {
     .catch((error)=>{
         console.log(error);
     })
-
+.finally(()=>setLoading(false))
    }
    useEffect(searchRecipes,[]);
 
@@ -44,10 +46,19 @@ export default function Recipes() {
                     variant="outlined" 
                     value={searchItem}
                     onChange={(event) =>setSearchItem(event.target.value)}
-                    onKeyDown ={event => event.key =="Enter" && searchRecipes()}
+                    onKeyDown ={event => event.key ==="Enter" && searchRecipes()}
                     />
                 <Grid sx={{ mt: '2rem' }} container spacing={3}>
-                    {recipes.map((recipe) => <RecipeItem key={recipe.id} title={recipe.title} image={recipe.image}/>)}
+                    {/* tenary operator if the first statement is true the middle statement would work. if it is false the last statement will work */}
+                    {loading ? (
+                    <Container sx = {{display:"flex",justifyContent:"center", height:"60vh"}}><img src={preLoader} width="20%"/>
+                    </Container>)
+                     : recipes.length >0 ? recipes.map((recipe) => 
+                    <RecipeItem key={recipe.id} title={recipe.title} 
+                    image={recipe.image}/>): (
+                    <Container sx={{display:"flex",justifyContent:"center",height:"60vh"}}> <img src= {noRecipes} width="20%"/>
+                    </Container>
+                    )}
                 </Grid>
             </Container>
 
