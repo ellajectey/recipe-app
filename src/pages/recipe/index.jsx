@@ -1,6 +1,35 @@
 import { Container } from "@mui/material";
+import { useParams } from "react-router-dom";
+import useSWR from "swr";
+import preLoader from "../../assets/images/bouncing-circles.svg";
 
-export default function Recipe()
-{
-    return <Container sx={{display:"flex",justifyContent:"center",alignItems:"center"}}><p>Recipe Page</p></Container>
+
+const getRecipe = (...args) => {
+   
+     // prepare url ( this will call the page for a particular recipe)
+     const url =new URL (...args);
+     url.searchParams.append('apiKey',process.env.REACT_APP_SPOONACULAR_API_KEY);
+    //  fecth and return data
+    return fetch(url).then(response => response.json());
+}
+
+export default function Recipe(){
+
+    const {id}=useParams();
+    const { data: recipe, isLoading} = useSWR(`https://api.spoonacular.com/recipes/${id}/information`, getRecipe);
+    // const fetcher = (...args) => fetch(...args).then(res => res.json())
+    console.log(recipe,isLoading);
+
+    return( 
+    <>
+    {isLoading?<img src={preLoader} /> :(<Container>
+        <h1>{recipe.title}</h1>
+        {/* <p>{recipe.summary}</p> */}
+        <img sx={{ maxWidth: 40, height: '40%' }} src={recipe.image}/>
+        <div dangerouslySetInnerHTML={{__html: recipe.summary}}/>
+        
+    </Container>
+    )}
+    </>
+    );
 }
