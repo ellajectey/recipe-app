@@ -9,14 +9,14 @@ const getRecipe = (...args) => {
      // prepare url ( this will call the page for a particular recipe)
      const url =new URL (...args);
      url.searchParams.append('apiKey',process.env.REACT_APP_SPOONACULAR_API_KEY);
-    //  fecth and return data
+    //  fetch and return data
     return fetch(url).then(response => response.json());
 }
 
 export default function Recipe(){
 
     const {id}=useParams();
-    const { data: recipe, isLoading} = useSWR(`https://api.spoonacular.com/recipes/${id}/information`, getRecipe);
+    const { data: recipe, isLoading} = useSWR(`http://localhost:4000/recipes/${id}`, getRecipe);
     // const fetcher = (...args) => fetch(...args).then(res => res.json())
     console.log(recipe,isLoading);
 

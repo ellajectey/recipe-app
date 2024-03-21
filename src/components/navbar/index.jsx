@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Typography,Button } from "@mui/material";
 
 
 export default function Navbar() {
@@ -10,6 +10,7 @@ export default function Navbar() {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     Recipe App
                 </Typography>
+                <Button color="inherit">Add Recipe</Button>
 
             </Toolbar>
         </AppBar>
