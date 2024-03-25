@@ -1,4 +1,5 @@
 import { AppBar, Toolbar, IconButton, Typography,Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 
 export default function Navbar() {
@@ -7,10 +8,11 @@ export default function Navbar() {
         <AppBar color="warning" position="static">
             <Toolbar>
 
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                <Typography  to="/" component={Link} variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
                     Recipe App
                 </Typography>
-                <Button color="inherit">Add Recipe</Button>
+                {/* <Link to="/add-recipe"><Button color="inherit">Add New Recipe</Button></Link> */}
+                <Button component={Link} to="/add-recipe" color="inherit">Add New Recipe</Button>
 
             </Toolbar>
         </AppBar>

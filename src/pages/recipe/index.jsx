@@ -2,6 +2,7 @@ import { Container } from "@mui/material";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import preLoader from "../../assets/images/bouncing-circles.svg";
+import Navbar from "../../components/navbar";
 
 
 const getRecipe = (...args) => {
@@ -22,10 +23,11 @@ export default function Recipe(){
 
     return( 
     <>
+    <Navbar/>
     {isLoading?<img src={preLoader} /> :(<Container>
         <h1>{recipe.title}</h1>
         {/* <p>{recipe.summary}</p> */}
-        <img sx={{ maxWidth: 40, height: '40%' }} src={recipe.image}/>
+        <img sx={{ maxWidth: 40, height: '40%' }} src={recipe.image} alt="recipe image"/>
         <div dangerouslySetInnerHTML={{__html: recipe.summary}}/>
         
     </Container>

@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.newRecipeForm{
+  text-align: center;
+  border-radius: black 8px;
+}
+
+.countryComponent{
+  text-align: center;
+}

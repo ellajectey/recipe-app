@@ -3,6 +3,7 @@ import RecipeItem from "../../components/recipe-item"
 import { useState, useEffect} from "react";
 import noRecipes from"../../assets/images/no_data_re_kwbl.svg";
 import preLoader from "../../assets/images/bouncing-circles.svg";
+import Navbar from "../../components/navbar";
 
 
 export default function Recipes() {
@@ -40,6 +41,7 @@ setLoading(true);
 
     return (
         <>
+        <Navbar/>
             <Container  sx={{ my: '2rem' }}>
                 <TextField color="warning" fullWidth
                     id="outlined-basic"
@@ -52,12 +54,12 @@ setLoading(true);
                 <Grid sx={{ mt: '2rem' }} container spacing={3}>
                     {/* tenary operator if the first statement is true the middle statement would work. if it is false the last statement will work */}
                     {loading ? (
-                    <Container sx = {{display:"flex",justifyContent:"center", height:"60vh"}}><img src={preLoader} width="20%"/>
+                    <Container sx = {{display:"flex",justifyContent:"center", height:"60vh"}}><img src={preLoader} alt="preloader" width="20%"/>
                     </Container>)
                      : recipes.length >0 ? recipes.map((recipe) => 
-                    <RecipeItem key={recipe.id} title={recipe.title} 
-                    image={recipe.image} id={recipe._id} />) : (
-                    <Container sx={{display:"flex",justifyContent:"center",height:"60vh"}}> <img src= {noRecipes} width="20%"/>
+                    <RecipeItem key={recipe._id} title={recipe.title} 
+                    image={recipe.image} alt="recipe card image" id={recipe._id} />) : (
+                    <Container sx={{display:"flex",justifyContent:"center",height:"60vh"}}> <img src= {noRecipes} alt="no recipes" width="20%"/>
                     </Container>
                     )}
                 </Grid>
