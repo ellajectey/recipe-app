@@ -17,18 +17,21 @@ const getRecipe = (...args) => {
 export default function Recipe(){
 
     const {id}=useParams();
-    const { data: recipe, isLoading} = useSWR(`http://localhost:4000/recipes/${id}`, getRecipe);
+    const { data: recipe, isLoading} = useSWR(`${process.env.REACT_APP_RECIPE_API}/recipes/${id}`, getRecipe);
     // const fetcher = (...args) => fetch(...args).then(res => res.json())
     console.log(recipe,isLoading);
 
     return( 
     <>
     <Navbar/>
-    {isLoading?<img src={preLoader} /> :(<Container>
+    {isLoading?<img src={preLoader} /> :(
+    <Container>
         <h1>{recipe.title}</h1>
         {/* <p>{recipe.summary}</p> */}
-        <img sx={{ maxWidth: 40, height: '40%' }} src={recipe.image} alt="recipe image"/>
-        <div dangerouslySetInnerHTML={{__html: recipe.summary}}/>
+        <div>{recipe.description}</div>
+        <img sx={{ maxWidth: 40, height: '40%' }} 
+        src={`${process.env.REACT_APP_RECIPE_API}/images/${recipe.image}`} alt={recipe.title}/>
+       
         
     </Container>
     )}
