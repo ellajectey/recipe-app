@@ -28,10 +28,9 @@ export default function Recipe(){
     <Container>
         <h1>{recipe.title}</h1>
         {/* <p>{recipe.summary}</p> */}
-        <div>{recipe.description}</div>
         <img sx={{ maxWidth: 40, height: '40%' }} 
-        src={`${process.env.REACT_APP_RECIPE_API}/images/${recipe.image}`} alt={recipe.title}/>
-       
+        src={`https://savefiles.org/${recipe.image}?shareable_link=155`} alt={recipe.title} width="20%"/>
+       <div>{recipe.description}</div>
         
     </Container>
     )}
